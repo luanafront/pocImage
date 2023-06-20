@@ -1,17 +1,24 @@
-let imageUpload = document.getElementById('imageUpload');
+document.getElementById('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  let form = new FormData();
 
-imageUpload.addEventListener('change', function(event) {
-  let file = event.target.files[0];
+  let file = document.getElementById('imageUpload').files[0];
+  form.append('profile_image', file);
 
-  let reader = new FileReader();
+  const api = '';
 
-  reader.onload = function(event) {
-    let image = document.createElement('img');
-    image.src = event.target.result;
-
-    let imageContainer = document.getElementById('imageContainer');
-    imageContainer.appendChild(image);
-  };
-
-  reader.readAsDataURL(file);
+  let XHR = new XMLHttpRequest();
+  XHR.open('PATCH', api, true);
+  XHR.onload = function () {
+    if (XHR.status === 200) {
+      console.log(XHR.responseText);
+    } else {
+      console.error(XHR.responseText);
+    }
+  }
+  XHR.setRequestHeader(
+    "",
+    ""
+  )
+  XHR.send(form);
 });
